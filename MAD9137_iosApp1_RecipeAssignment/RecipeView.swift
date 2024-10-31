@@ -13,20 +13,26 @@ struct RecipeView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
+                Text("Recipe Details")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.bottom, 5)
+                    .foregroundStyle(.primary)
+
                 Text(recipe.title)
-                    .font(.title)
+                    .font(.system(size: 30))
                     .fontWeight(.bold)
                     .padding(.bottom, 5)
                     .foregroundStyle(Color.blue)
-                
+
                 Text(recipe.description)
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.leading)
-                
+
                 Divider()
-                
+
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Ingredients")
                         .font(.headline)
@@ -38,9 +44,9 @@ struct RecipeView: View {
                 .padding(20)
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(10)
-               
+
                 Divider()
-                
+
                 VStack(alignment: .leading, spacing: 20) {
                     Text("Steps")
                         .font(.headline)
@@ -50,8 +56,11 @@ struct RecipeView: View {
                     }
                 }
             }
-            .padding()
+            .padding(30)
         }
-        .navigationTitle("Recipe Details")
     }
+}
+
+#Preview {
+    ListView()
 }

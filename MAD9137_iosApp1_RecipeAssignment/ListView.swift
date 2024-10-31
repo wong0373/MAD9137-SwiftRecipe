@@ -52,35 +52,65 @@ struct ListView: View {
             }
             .padding()
             .background(Color(.systemGray6))
-            .navigationTitle("Delicious Recipes")
             .toolbar {
-                ToolbarItem {
-                    Button {
-                        isPresented.toggle()
-                    } label: {
-                        Image(systemName: "plus.circle.fill")
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Text("Recipes")
                             .font(.largeTitle)
-                            .foregroundColor(.blue)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.primary)
+                            .padding()
+
+                        Button {
+                            isPresented.toggle()
+                        } label: {
+                            Image(systemName: "plus.circle.fill")
+                                .font(.largeTitle)
+                                .foregroundColor(.blue)
+                        }
                     }
                 }
             }
             .sheet(isPresented: $isPresented) {
-                Form {
-                    Section(header: Text("Add your own recipe")) {
-                        TextField("Recipe Name", text: $title)
-                        TextField("Description", text: $description)
-                        TextField("Ingredients (comma separated)", text: $ingredientsInput)
-                        TextField("Steps (comma separated)", text: $stepsInput)
-                    }
+                ZStack {
+                    Color(.systemGray6)
+                        .ignoresSafeArea()
 
-                    Button { addRecipe() } label: {
-                        Text("Add")
+                    VStack {
+                        Form {
+                            Section(header: Text("Add your own recipe")) {
+                                TextField("Recipe Name", text: $title)
+                                TextField("Description", text: $description)
+                                TextField("Ingredients (comma separated)", text: $ingredientsInput)
+                                TextField("Steps (comma separated)", text: $stepsInput)
+                            }
+                        }
+
+                        HStack {
+                            Button { addRecipe() } label: {
+                                Text("Add")
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .cornerRadius(10)
+                            }
+                            .disabled(title.isEmpty || description.isEmpty || ingredientsInput.isEmpty || stepsInput.isEmpty)
+
+                            Button { isPresented.toggle() } label: {
+                                Text("Cancel")
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.red)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        .padding()
                     }
-                    .disabled(title.isEmpty || description.isEmpty || ingredientsInput.isEmpty || stepsInput.isEmpty)
-                }.navigationTitle("Add Recipe")
-                    .navigationBarItems(trailing: Button("Cancel") {
-                        isPresented.toggle()
-                    })
+                }
             }
         }
     }
