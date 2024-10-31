@@ -22,16 +22,17 @@ struct ListView: View {
     @State var description: String = ""
     @State var ingredientsInput: String = ""
     @State var stepsInput: String = ""
+    @State private var searchText: String = ""
 
     var body: some View {
         NavigationStack {
             VStack {
                 List {
-                    ForEach(model.recipes) { recipe in
+                    ForEach(filteredRecipes) { recipe in
                         NavigationLink {
                             RecipeView(recipe: recipe)
                         } label: {
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 Text(recipe.title)
                                     .font(.headline)
                                     .foregroundColor(.primary)
@@ -47,30 +48,24 @@ struct ListView: View {
                         indexSet in deleteRows(at: indexSet)
                     }
                 }.listStyle(PlainListStyle())
-                    .cornerRadius(13)
-                    .shadow(radius: 3)
-            }
-            .padding()
-            .background(Color(.systemGray6))
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    HStack {
-                        Text("Recipes")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.primary)
-                            .padding()
-
-                        Button {
-                            isPresented.toggle()
-                        } label: {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.largeTitle)
-                                .foregroundColor(.blue)
+                    .cornerRadius(10)
+                    .shadow(radius: 1)
+                    .padding(.horizontal)
+                    .navigationTitle("👨‍🍳Recipes")
+                    .toolbar {
+                        ToolbarItem {
+                            Button {
+                                isPresented.toggle()
+                            } label: {
+                                Image(systemName: "plus.circle.fill")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.blue)
+                            }
                         }
-                    }
-                }
+                    }.searchable(text: $searchText, prompt: "Search by title or ingredient").textInputAutocapitalization(.never)
             }
+
+            .background(Color(.systemGray6))
             .sheet(isPresented: $isPresented) {
                 ZStack {
                     Color(.systemGray6)
@@ -108,7 +103,6 @@ struct ListView: View {
                                     .cornerRadius(10)
                             }
                         }
-                        .padding()
                     }
                 }
             }
@@ -132,6 +126,17 @@ struct ListView: View {
         description = ""
         ingredientsInput = ""
         stepsInput = ""
+    }
+
+    var filteredRecipes: [Recipe] {
+        if searchText.isEmpty {
+            return model.recipes
+        } else {
+            return model.recipes.filter {
+                $0.title.localizedCaseInsensitiveContains(searchText) ||
+                    $0.ingredients.joined(separator: ", ").localizedCaseInsensitiveContains(searchText)
+            }
+        }
     }
 }
 

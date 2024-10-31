@@ -9,6 +9,11 @@ import SwiftUI
 
 struct RecipeView: View {
     var recipe: Recipe
+//    @State var isEditing: Bool = false
+//    @State var editTitle: String
+//    @State var editDescription: String
+//    @State var editIngredients: String
+//    @State var editSteps: String
 
     var body: some View {
         ScrollView {
@@ -37,7 +42,7 @@ struct RecipeView: View {
                     Text("Ingredients")
                         .font(.headline)
                     ForEach(recipe.ingredients, id: \.self) { ingredient in
-                        Text("• \(ingredient)")
+                        Text("✅ \(ingredient)")
                             .padding(.leading, 10)
                     }
                 }
