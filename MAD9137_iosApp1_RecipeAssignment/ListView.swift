@@ -16,13 +16,15 @@ struct Recipe: Identifiable {
 }
 
 struct ListView: View {
-    @ObservedObject var model = ListViewModel()
-    @State var isPresented: Bool = false
-    @State var title: String = ""
-    @State var description: String = ""
-    @State var ingredientsInput: String = ""
-    @State var stepsInput: String = ""
+    @ObservedObject private var model = ListViewModel()
+    @State private var isPresented: Bool = false
+    @State private var title: String = ""
+    @State private var description: String = ""
+    @State private var ingredientsInput: String = ""
+    @State private var stepsInput: String = ""
     @State private var searchText: String = ""
+    @State private var showAlert: Bool = false
+    @State private var indexSetToDelete: IndexSet?
 
     var body: some View {
         NavigationStack {
@@ -45,15 +47,18 @@ struct ListView: View {
                         }
                     }
                     .onDelete {
-                        indexSet in deleteRows(at: indexSet)
+                        indexSet in
+                        indexSetToDelete = indexSet
+                        showAlert = true
                     }
+
                 }.listStyle(PlainListStyle())
                     .cornerRadius(10)
                     .shadow(radius: 1)
                     .padding(.horizontal)
                     .navigationTitle("👨‍🍳Recipes")
                     .toolbar {
-                        ToolbarItem {
+                        ToolbarItem(placement: .topBarTrailing) {
                             Button {
                                 isPresented.toggle()
                             } label: {
@@ -66,45 +71,23 @@ struct ListView: View {
             }
 
             .background(Color(.systemGray6))
-            .sheet(isPresented: $isPresented) {
-                ZStack {
-                    Color(.systemGray6)
-                        .ignoresSafeArea()
-
-                    VStack {
-                        Form {
-                            Section(header: Text("Add your own recipe")) {
-                                TextField("Recipe Name", text: $title)
-                                TextField("Description", text: $description)
-                                TextField("Ingredients (comma separated)", text: $ingredientsInput)
-                                TextField("Steps (comma separated)", text: $stepsInput)
-                            }
-                        }
-
-                        HStack {
-                            Button { addRecipe() } label: {
-                                Text("Add")
-                                    .font(.headline)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .padding()
-                                    .background(Color.blue)
-                                    .cornerRadius(10)
-                            }
-                            .disabled(title.isEmpty || description.isEmpty || ingredientsInput.isEmpty || stepsInput.isEmpty)
-
-                            Button { isPresented.toggle() } label: {
-                                Text("Cancel")
-                                    .font(.headline)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .padding()
-                                    .background(Color.red)
-                                    .cornerRadius(10)
-                            }
+            .alert("Delete Recipe", isPresented: $showAlert) {
+                Button("Delete", role: .destructive) {
+                    if let indexSetToDelete = indexSetToDelete {
+                        withAnimation {
+                            deleteRows(at: indexSetToDelete)
                         }
                     }
                 }
+                Button("Cancel", role: .cancel) {
+                    showAlert = false
+                    indexSetToDelete = nil
+                }
+            } message: {
+                Text("Are you sure you want to delete this recipe?")
+            }
+            .sheet(isPresented: $isPresented) {
+                AddRecipeView(model: model, isPresented: $isPresented)
             }
         }
     }

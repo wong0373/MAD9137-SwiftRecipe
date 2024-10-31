@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct AddRecipeView: View {
-    @ObservedObject var model = ListViewModel()
-    @State var isPresented: Bool = false
+    @ObservedObject var model: ListViewModel
+    @Binding var isPresented: Bool
     @State var title: String = ""
     @State var description: String = ""
     @State var ingredientsInput: String = ""
@@ -52,7 +52,6 @@ struct AddRecipeView: View {
                             .cornerRadius(10)
                     }
                 }
-                .padding()
             }
         }
     }
