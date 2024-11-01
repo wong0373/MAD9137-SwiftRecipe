@@ -52,7 +52,8 @@ struct AddRecipeView: View {
                             .cornerRadius(10)
                     }
                 }
-            }
+                .padding(.top)
+            }.padding()
         }
     }
 

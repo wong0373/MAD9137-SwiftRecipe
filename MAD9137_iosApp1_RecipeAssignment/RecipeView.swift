@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct RecipeView: View {
-    var recipe: Recipe
-//    @State var isEditing: Bool = false
-//    @State var editTitle: String
-//    @State var editDescription: String
-//    @State var editIngredients: String
-//    @State var editSteps: String
+    @ObservedObject var model: ListViewModel
+    @State private var isEditing: Bool = false
+    @State var recipe: Recipe
 
     var body: some View {
         ScrollView {
@@ -35,6 +32,13 @@ struct RecipeView: View {
                     .foregroundColor(.gray)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.leading)
+
+                Button("Edit Recipe") {
+                    isEditing.toggle()
+                }
+                .sheet(isPresented: $isEditing) {
+                    EditRecipeView(model: model, recipe: $recipe, isPresented: $isEditing)
+                }
 
                 Divider()
 
@@ -61,8 +65,8 @@ struct RecipeView: View {
                     }
                 }
             }
-            .padding(30)
         }
+        .padding(30)
     }
 }
 

@@ -32,7 +32,7 @@ struct ListView: View {
                 List {
                     ForEach(filteredRecipes) { recipe in
                         NavigationLink {
-                            RecipeView(recipe: recipe)
+                            RecipeView(model: model, recipe: recipe)
                         } label: {
                             VStack(alignment: .leading, spacing: 10) {
                                 Text(recipe.title)
