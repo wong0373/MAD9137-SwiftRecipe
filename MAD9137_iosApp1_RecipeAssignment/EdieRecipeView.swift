@@ -15,6 +15,7 @@ struct EditRecipeView: View {
     @State private var editDescription: String
     @State private var editIngredients: String
     @State private var editSteps: String
+    @State private var editImage: String
 
     init(model: ListViewModel, recipe: Binding<Recipe>, isPresented: Binding<Bool>) {
         self.model = model
@@ -24,6 +25,7 @@ struct EditRecipeView: View {
         self._editDescription = State(initialValue: "")
         self._editIngredients = State(initialValue: "")
         self._editSteps = State(initialValue: "")
+        self._editImage = State(initialValue: "")
     }
 
     var body: some View {
@@ -33,11 +35,22 @@ struct EditRecipeView: View {
 
             VStack {
                 Form {
-                    Section(header: Text("Edit Recipe")) {
-                        TextField("Recipe Name", text: $editTitle)
-                        TextField("Description", text: $editDescription)
-                        TextField("Ingredients (comma separated)", text: $editIngredients)
-                        TextField("Steps (comma separated)", text: $editSteps)
+                    Section(header: Text("Edit recipe's name")) {
+                        TextField("Type the recipe's name", text: $editTitle)
+                    }
+                    Section(header: Text("Edit description")) {
+                        TextField("Describe your dish", text: $editDescription)
+                    }
+                    Section(header: Text("Edit image URL")) {
+                        TextField("Place the image URL", text: $editImage)
+                    }
+                    Section(header: Text("Edit ingredients")) {
+                        TextField("Insert the ingredients (comma separated)", text: $editIngredients)
+                            .frame(height: 120)
+                    }
+                    Section(header: Text("Edit steps")) {
+                        TextField("Insert the cooking steps (comma separated)", text: $editSteps)
+                            .frame(height: 120)
                     }
                 }
 
@@ -76,7 +89,7 @@ struct EditRecipeView: View {
     func saveChanges() {
         let ingredients = editIngredients.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
         let steps = editSteps.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
-        let updatedRecipe = Recipe(title: editTitle, description: editDescription, ingredients: ingredients, steps: steps)
+        let updatedRecipe = Recipe(title: editTitle, description: editDescription, ingredients: ingredients, steps: steps, imageURL: editImage)
 
         if let index = model.recipes.firstIndex(where: { $0.id == recipe.id }) {
             model.recipes[index] = updatedRecipe // Update the recipe in the model

@@ -14,6 +14,7 @@ struct AddRecipeView: View {
     @State var description: String = ""
     @State var ingredientsInput: String = ""
     @State var stepsInput: String = ""
+    @State var imageURLInput: String = ""
 
     var body: some View {
         ZStack {
@@ -22,11 +23,24 @@ struct AddRecipeView: View {
 
             VStack {
                 Form {
-                    Section(header: Text("Add your own recipe")) {
-                        TextField("Recipe Name", text: $title)
-                        TextField("Description", text: $description)
-                        TextField("Ingredients (comma separated)", text: $ingredientsInput)
-                        TextField("Steps (comma separated)", text: $stepsInput)
+                    Section(header: Text("Recipe Name")) {
+                        TextField("Type the recipe's name", text: $title)
+                    }
+                    Section(header: Text("Description")) {
+                        TextField("Describe your dish", text: $description)
+                    }
+                    Section(header: Text("Image")) {
+                        TextField("Place the image URL", text: $imageURLInput)
+                    }
+
+                    Section(header: Text("Ingredients")) {
+                        TextField("Insert the ingredients (comma separated)", text: $ingredientsInput)
+                            .frame(height: 120)
+                    }
+
+                    Section(header: Text("Steps")) {
+                        TextField("Insert the cooking steps (comma separated)", text: $stepsInput)
+                            .frame(height: 120)
                     }
                 }
 
@@ -60,7 +74,8 @@ struct AddRecipeView: View {
     func addRecipe() {
         let ingredients = ingredientsInput.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
         let steps = stepsInput.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
-        model.recipes.append(.init(title: title, description: description, ingredients: ingredients, steps: steps))
+        let newRecipe = Recipe(title: title, description: description, ingredients: ingredients, steps: steps, imageURL: imageURLInput)
+        model.recipes.append(newRecipe)
         isPresented.toggle()
         resetFields()
     }
@@ -68,6 +83,7 @@ struct AddRecipeView: View {
     func resetFields() {
         title = ""
         description = ""
+        imageURLInput = ""
         ingredientsInput = ""
         stepsInput = ""
     }

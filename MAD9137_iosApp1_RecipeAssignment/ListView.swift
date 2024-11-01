@@ -13,6 +13,7 @@ struct Recipe: Identifiable {
     var description: String
     var ingredients: [String]
     var steps: [String]
+    var imageURL: String?
 }
 
 struct ListView: View {
@@ -34,6 +35,18 @@ struct ListView: View {
                         NavigationLink {
                             RecipeView(model: model, recipe: recipe)
                         } label: {
+                            AsyncImage(url: URL(string: recipe.imageURL ?? "")) { image in image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
+                                .clipShape(Circle())
+                            } placeholder: {
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
+                                    .foregroundColor(.gray)
+                            }
                             VStack(alignment: .leading, spacing: 10) {
                                 Text(recipe.title)
                                     .font(.headline)
@@ -43,6 +56,7 @@ struct ListView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
+
                             .padding()
                         }
                     }

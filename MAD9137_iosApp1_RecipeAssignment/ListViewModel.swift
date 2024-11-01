@@ -30,8 +30,9 @@ class ListViewModel: ObservableObject {
                        "Remove the skillet from heat and add the drained spaghetti, mixing quickly to combine with the pancetta.",
                        "Immediately pour in the egg and cheese mixture, stirring rapidly to create a creamy sauce. Add reserved pasta water as needed to achieve desired consistency.",
                        "Season generously with freshly cracked black pepper, serve immediately with extra Parmesan on top."
-                   ]),
-            
+                   ],
+                   imageURL: "https://static01.nyt.com/images/2021/02/14/dining/carbonara-horizontal/carbonara-horizontal-square640-v2.jpg"),
+                   
             Recipe(title: "Chicken Alfredo",
                    description: """
                    A rich and creamy pasta dish featuring fettuccine noodles and tender chicken. This indulgent meal is quick to prepare and incredibly delicious.
@@ -51,7 +52,7 @@ class ListViewModel: ObservableObject {
                        "Add minced garlic to the skillet and sauté for 1 minute until fragrant.",
                        "Pour in the heavy cream and bring to a gentle simmer. Stir in the grated Parmesan cheese until melted and creamy.",
                        "Add the cooked fettuccine to the sauce, tossing to coat evenly. Serve hot with additional Parmesan cheese on top."
-                   ]),
+                   ], imageURL: "https://www.budgetbytes.com/wp-content/uploads/2022/07/Chicken-Alfredo-above.jpg"),
             
             Recipe(title: "Beef Stroganoff",
                    description: """
@@ -74,7 +75,7 @@ class ListViewModel: ObservableObject {
                        "Sprinkle flour over the vegetables and stir to combine. Gradually pour in beef broth, stirring until thickened.",
                        "Return the beef to the skillet and stir in the sour cream. Cook for a few minutes until heated through.",
                        "Serve the stroganoff over cooked egg noodles, garnished with fresh parsley if desired."
-                   ]),
+                   ], imageURL: "https://messinthekitchen.com/wp-content/uploads/2021/04/beef-stroganoff-feature.jpg"),
             
             Recipe(title: "Margherita Pizza",
                    description: """
@@ -95,7 +96,7 @@ class ListViewModel: ObservableObject {
                        "Arrange sliced mozzarella evenly over the sauce and season with a pinch of salt.",
                        "Bake the pizza in the hot oven for about 10-12 minutes until the crust is golden and the cheese is bubbling.",
                        "Remove from the oven and top with fresh basil leaves and a drizzle of olive oil before serving."
-                   ]),
+                   ], imageURL: "https://cdn.shopify.com/s/files/1/0274/9503/9079/files/20220211142754-margherita-9920_5a73220e-4a1a-4d33-b38f-26e98e3cd986.jpg?v=1723650067"),
             
             Recipe(title: "Tandoori Chicken",
                    description: """
@@ -117,7 +118,7 @@ class ListViewModel: ObservableObject {
                        "Preheat your grill to medium-high heat.",
                        "Grill the marinated chicken for 15-20 minutes, turning occasionally, until cooked through and slightly charred.",
                        "Garnish with fresh cilantro before serving, and enjoy with naan or rice."
-                   ]),
+                   ], imageURL: "https://www.allrecipes.com/thmb/ygY1JXP8_IkDSjPPW5VH2dTiMMU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/50347-indian-tandoori-chicken-DDMFS-4x3-3035-205e98c80b2f4275b5bd010c396d9149.jpg"),
             
             Recipe(title: "Caprese Salad",
                    description: """
@@ -136,7 +137,7 @@ class ListViewModel: ObservableObject {
                        "Tuck fresh basil leaves between the layers.",
                        "Drizzle with olive oil and balsamic vinegar if using.",
                        "Season with salt and pepper to taste, then serve immediately."
-                   ]),
+                   ], imageURL: "https://www.allrecipes.com/thmb/Usj7zOLJSQ5xqw-4dwWarvPNjJg=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/AR-228126-caprese-salad-with-balsamic-reduction-ddmfs-2644-4x3-f32ac2b2fb9d4234884a752490fb015b.jpg"),
             
             Recipe(title: "Beef Tacos",
                    description: """
@@ -157,7 +158,7 @@ class ListViewModel: ObservableObject {
                        "Warm taco shells in the oven according to package instructions.",
                        "Fill each taco shell with seasoned beef and top with shredded lettuce, diced tomatoes, and cheese.",
                        "Serve with a dollop of sour cream on top."
-                   ]),
+                   ], imageURL: "https://www.onceuponachef.com/images/2023/08/Beef-Tacos.jpg"),
             
             Recipe(title: "Vegetable Stir-Fry",
                    description: """
@@ -178,7 +179,7 @@ class ListViewModel: ObservableObject {
                        "Add the broccoli, bell peppers, and carrots, stir-frying for about 5-7 minutes until tender-crisp.",
                        "Pour in soy sauce and toss to coat the vegetables evenly.",
                        "Serve hot, garnished with sesame seeds."
-                   ]),
+                   ], imageURL: "https://www.rachelcooks.com/wp-content/uploads/2022/09/Beef-Stir-Fry-with-Vegetables016-web-square.jpg"),
             
             Recipe(title: "Chocolate Chip Cookies",
                    description: """
@@ -203,7 +204,7 @@ class ListViewModel: ObservableObject {
                        "Fold in the chocolate chips.",
                        "Drop tablespoon-sized balls of dough onto the prepared baking sheet, spacing them about 2 inches apart.",
                        "Bake for 10-12 minutes until the edges are golden. Allow to cool before serving."
-                   ])
+                   ], imageURL: "https://theloopywhisk.com/wp-content/uploads/2024/02/Brown-Butter-Chocolate-Chip-Cookies_NEW_1200px-featured-2.jpg")
         ]
     }
 }

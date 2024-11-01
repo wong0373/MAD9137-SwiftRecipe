@@ -15,11 +15,14 @@ struct RecipeView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                Text("Recipe Details")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 5)
-                    .foregroundStyle(.primary)
+                AsyncImage(url: URL(string: recipe.imageURL ?? "")) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity)
+                        .clipped()
+
+                } placeholder: {}
 
                 Text(recipe.title)
                     .font(.system(size: 30))
@@ -32,13 +35,9 @@ struct RecipeView: View {
                     .foregroundColor(.gray)
                     .padding(.bottom, 10)
                     .multilineTextAlignment(.leading)
-
-                Button("Edit Recipe") {
-                    isEditing.toggle()
-                }
-                .sheet(isPresented: $isEditing) {
-                    EditRecipeView(model: model, recipe: $recipe, isPresented: $isEditing)
-                }
+                    .sheet(isPresented: $isEditing) {
+                        EditRecipeView(model: model, recipe: $recipe, isPresented: $isEditing)
+                    }
 
                 Divider()
 
@@ -64,7 +63,13 @@ struct RecipeView: View {
                             .padding(.leading, 10)
                     }
                 }
-            }
+            }.navigationTitle("Recipe Details")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    Button("Edit Recipe") {
+                        isEditing.toggle()
+                    }
+                }
         }
         .padding(30)
     }
