@@ -55,8 +55,8 @@ struct ListView: View {
                                 Text(recipe.description)
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
+                                    .lineLimit(3)
                             }
-
                             .padding()
                         }.swipeActions {
                             Button("Delete") {
