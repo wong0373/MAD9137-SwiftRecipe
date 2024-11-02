@@ -66,7 +66,6 @@ struct EditRecipeView: View {
                             .background(Color.blue)
                             .cornerRadius(10)
                     }
-//                    .disabled(editTitle.isEmpty || editDescription.isEmpty || editIngredients.isEmpty || editSteps.isEmpty)
 
                     Button {
                         isPresented.toggle()
@@ -92,11 +91,11 @@ struct EditRecipeView: View {
         let updatedRecipe = Recipe(title: editTitle.isEmpty ? recipe.title : editTitle, description: editDescription.isEmpty ? recipe.description : editDescription, ingredients: editIngredients.isEmpty ? recipe.ingredients : ingredients, steps: editSteps.isEmpty ? recipe.steps : steps, imageURL: editImage.isEmpty ? recipe.imageURL : editImage)
 
         if let index = model.recipes.firstIndex(where: { $0.id == recipe.id }) {
-            model.recipes[index] = updatedRecipe // Update the recipe in the model
+            model.recipes[index] = updatedRecipe
         }
 
-        recipe = updatedRecipe // Update the bound recipe
-        isPresented = false // Close the edit view
+        recipe = updatedRecipe
+        isPresented = false
     }
 }
 
