@@ -19,7 +19,6 @@ struct RecipeView: View {
                     image
                         .resizable()
                         .scaledToFill()
-                        .frame(maxWidth: .infinity)
                         .clipped()
 
                 } placeholder: {
@@ -28,7 +27,7 @@ struct RecipeView: View {
                         .scaledToFill()
                         .frame(maxWidth: .infinity)
                         .clipped()
-                }.cornerRadius(10)
+                }.cornerRadius(8)
 
                 Text(recipe.title)
                     .font(.system(size: 30))
@@ -47,7 +46,7 @@ struct RecipeView: View {
 
                 Divider()
 
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 15) {
                     Text("Ingredients")
                         .font(.headline)
                     ForEach(recipe.ingredients, id: \.self) { ingredient in
@@ -55,9 +54,6 @@ struct RecipeView: View {
                             .padding(.leading, 10)
                     }
                 }
-                .padding(20)
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(10)
 
                 Divider()
 
