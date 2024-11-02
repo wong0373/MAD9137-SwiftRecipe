@@ -25,7 +25,7 @@ struct ListView: View {
     @State private var stepsInput: String = ""
     @State private var searchText: String = ""
     @State private var showAlert: Bool = false
-    @State private var indexSetToDelete: IndexSet?
+    @State private var indexSetToDelete: UUID?
 
     var body: some View {
         NavigationStack {
@@ -58,26 +58,27 @@ struct ListView: View {
                             }
 
                             .padding()
+                        }.swipeActions {
+                            Button("Delete") {
+                                indexSetToDelete = recipe.id
+                                showAlert = true
+                            }
+                            .tint(Color.red)
                         }
-                    }
-                    .onDelete {
-                        indexSet in
-                        indexSetToDelete = indexSet
-                        showAlert = true
                     }
 
                 }.listStyle(PlainListStyle())
                     .cornerRadius(10)
                     .shadow(radius: 1)
-                    .padding(.horizontal)
-                    .navigationTitle("👨‍🍳Recipes")
+                    .padding(.horizontal, 18)
+                    .navigationTitle("🥘Recipes")
                     .toolbar {
                         ToolbarItem(placement: .topBarTrailing) {
                             Button {
                                 isPresented.toggle()
                             } label: {
                                 Image(systemName: "plus.circle.fill")
-                                    .font(.largeTitle)
+                                    .font(.title)
                                     .foregroundColor(.blue)
                             }
                         }
@@ -87,10 +88,11 @@ struct ListView: View {
             .background(Color(.systemGray6))
             .alert("Delete Recipe", isPresented: $showAlert) {
                 Button("Delete", role: .destructive) {
-                    if let indexSetToDelete = indexSetToDelete {
-                        withAnimation {
-                            deleteRows(at: indexSetToDelete)
-                        }
+//                    if let indexSetToDelete = indexSetToDelete {
+//                        deleteRows(at: indexSetToDelete)
+//                    }
+                    if let index = model.recipes.firstIndex(where: { $0.id == indexSetToDelete }) {
+                        model.recipes.remove(at: index)
                     }
                 }
                 Button("Cancel", role: .cancel) {

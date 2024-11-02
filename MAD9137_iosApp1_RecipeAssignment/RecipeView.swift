@@ -22,7 +22,7 @@ struct RecipeView: View {
                         .frame(maxWidth: .infinity)
                         .clipped()
 
-                } placeholder: {}
+                } placeholder: {}.cornerRadius(10)
 
                 Text(recipe.title)
                     .font(.system(size: 30))
