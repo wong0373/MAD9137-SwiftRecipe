@@ -22,7 +22,13 @@ struct RecipeView: View {
                         .frame(maxWidth: .infinity)
                         .clipped()
 
-                } placeholder: {}.cornerRadius(10)
+                } placeholder: {
+                    Image("Placeholder image")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity)
+                        .clipped()
+                }.cornerRadius(10)
 
                 Text(recipe.title)
                     .font(.system(size: 30))

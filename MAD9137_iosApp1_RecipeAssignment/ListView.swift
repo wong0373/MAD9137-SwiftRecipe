@@ -41,11 +41,11 @@ struct ListView: View {
                                 .frame(width: 100, height: 100)
                                 .clipShape(Circle())
                             } placeholder: {
-                                Image(systemName: "photo")
+                                Image("Placeholder image")
                                     .resizable()
-                                    .scaledToFit()
+                                    .scaledToFill()
                                     .frame(width: 100, height: 100)
-                                    .foregroundColor(.gray)
+                                    .clipShape(Circle())
                             }
                             VStack(alignment: .leading, spacing: 10) {
                                 Text(recipe.title)

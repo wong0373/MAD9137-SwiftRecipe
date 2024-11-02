@@ -66,7 +66,7 @@ struct EditRecipeView: View {
                             .background(Color.blue)
                             .cornerRadius(10)
                     }
-                    .disabled(editTitle.isEmpty || editDescription.isEmpty || editIngredients.isEmpty || editSteps.isEmpty)
+//                    .disabled(editTitle.isEmpty || editDescription.isEmpty || editIngredients.isEmpty || editSteps.isEmpty)
 
                     Button {
                         isPresented.toggle()
@@ -89,7 +89,7 @@ struct EditRecipeView: View {
     func saveChanges() {
         let ingredients = editIngredients.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
         let steps = editSteps.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
-        let updatedRecipe = Recipe(title: editTitle, description: editDescription, ingredients: ingredients, steps: steps, imageURL: editImage)
+        let updatedRecipe = Recipe(title: editTitle.isEmpty ? recipe.title : editTitle, description: editDescription.isEmpty ? recipe.description : editDescription, ingredients: editIngredients.isEmpty ? recipe.ingredients : ingredients, steps: editSteps.isEmpty ? recipe.steps : steps, imageURL: editImage.isEmpty ? recipe.imageURL : editImage)
 
         if let index = model.recipes.firstIndex(where: { $0.id == recipe.id }) {
             model.recipes[index] = updatedRecipe // Update the recipe in the model
